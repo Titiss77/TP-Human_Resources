@@ -7,4 +7,7 @@ protected $format
 public function index(){ 
 return $this->respond($this->model->findAll()); 
 } 
+public function show($id = null) { 
+    return $this->respond($this->model->find($id)); 
+    }
 }
