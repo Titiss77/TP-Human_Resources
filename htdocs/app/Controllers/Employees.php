@@ -47,7 +47,6 @@ class Employees extends ResourceController
     // DELETE /employees/{id}
     public function delete($id = null)
     {
-        // On vérifie d'abord que l'employé existe
         if (!$this->model->find($id)) {
             return $this->failNotFound(sprintf('Employee with ID %s not found', $id));
         }
@@ -63,7 +62,6 @@ class Employees extends ResourceController
         $data = $this->request->getJSON(true);
         $insertId = $this->model->insert($data);
 
-        // CodeIgniter retourne false si l'insertion échoue (ex: erreur de validation)
         if ($insertId === false) {
             return $this->failValidationErrors($this->model->errors());
         }
@@ -74,7 +72,6 @@ class Employees extends ResourceController
     // PUT /employees/{id}
     public function update($id = null)
     {
-        // On vérifie que l'employé existe avant de le mettre à jour
         if (!$this->model->find($id)) {
             return $this->failNotFound(sprintf('Employee with ID %s not found', $id));
         }
