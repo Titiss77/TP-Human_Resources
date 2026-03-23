@@ -10,7 +10,7 @@ class Employees extends ResourceController
     protected $format = 'json';
 
     /*
-     * Exemple de données attendues en POST/PUT (Form-Data) :
+     * (Form-Data) :
         first_name:Benoît
         last_name:Corcuff
         email:bcorcuff@gmail.com
