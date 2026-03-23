@@ -7,23 +7,20 @@ use CodeIgniter\RESTful\ResourceController;
 class Employees extends ResourceController
 {
     protected $modelName = 'App\Models\Employees';
-    protected $format    = 'json';
+    protected $format = 'json';
 
     /*
-    Exemple de payload :
-    {
-        "employee_id": "291",
-        "first_name": "Benoît",
-        "last_name": "Corcuff",
-        "email": "bcorcuff@gmail.com",
-        "phone_integer": "06 12 34 56 78",
-        "hire_date": "0001-08-01 BC",
-        "job_id": "SA_REP",
-        "salary": "90.00",
-        "commission_pct": "0.35",
-        "manager_id": "146",
-        "department_id": "80"
-    }
+     * Exemple de données attendues en POST/PUT (Form-Data) :
+        first_name:Benoît
+        last_name:Corcuff
+        email:bcorcuff@gmail.com
+        phone_integer:06 12 34 56 78
+        hire_date:0001-08-01 BC
+        job_id:SA_REP
+        salary:90.00
+        commission_pct:0.35
+        manager_id:146
+        department_id:80
      */
 
     // GET /employees
@@ -52,14 +49,15 @@ class Employees extends ResourceController
         }
 
         $this->model->delete($id);
-        
+
         return $this->respondDeleted(['id' => $id, 'message' => 'Employee successfully deleted']);
     }
 
     // POST /employees
     public function create()
     {
-        $data = $this->request->getJSON(true);
+        $data = $this->request->getPost();
+
         $insertId = $this->model->insert($data);
 
         if ($insertId === false) {
@@ -76,8 +74,8 @@ class Employees extends ResourceController
             return $this->failNotFound(sprintf('Employee with ID %s not found', $id));
         }
 
-        $data = $this->request->getJSON(true);
-        
+        $data = $this->request->getRawInput();
+
         if ($this->model->update($id, $data) === false) {
             return $this->failValidationErrors($this->model->errors());
         }
