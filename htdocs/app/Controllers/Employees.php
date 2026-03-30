@@ -10,7 +10,7 @@ class Employees extends ResourceController
     protected $format = 'json';
 
     /*
-     * (Form-Data) :
+     * (x-www-form-urlencoded) :
         first_name:Benoît
         last_name:Corcuff
         email:bcorcuff@gmail.com
