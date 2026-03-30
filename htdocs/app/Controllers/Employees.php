@@ -85,6 +85,21 @@ class Employees extends ResourceController
 
     public function rowCount()
     {
-        return $this->respond($this->model->countAllResults());
+        $builder = $this->model->builder();
+        return $this->respond($builder->countAllResults());
+    }
+
+    // http://localhost/ws/employees/name/Corcuff
+    public function findByName($name)
+    {
+        if (!$name) {
+            return $this->failValidationErrors(['name' => 'Name is required']);
+        }
+
+        $builder = $this->model->builder();
+        $builder->like('first_name', $name);
+        $builder->orLike('last_name', $name);
+
+        return $this->respond($builder->get()->getResult());
     }
 }
