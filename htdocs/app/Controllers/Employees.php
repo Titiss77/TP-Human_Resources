@@ -85,6 +85,9 @@ class Employees extends ResourceController
 
     public function rowCount()
     {
-        return $this->builder()->countAllResults();
+        $response = [
+            'count' => $this->builder()->countAllResults()
+        ];
+        return $this->respond($response);
     }
 }
