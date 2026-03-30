@@ -11,16 +11,16 @@ class Employees extends ResourceController
 
     /*
      * (x-www-form-urlencoded) :
-        first_name:Benoît
-        last_name:Corcuff
-        email:bcorcuff@gmail.com
-        phone_integer:06 12 34 56 78
-        hire_date:0001-08-01 BC
-        job_id:SA_REP
-        salary:90.00
-        commission_pct:0.35
-        manager_id:146
-        department_id:80
+     *  first_name:Benoît
+     *  last_name:Corcuff
+     *  email:bcorcuff@gmail.com
+     *  phone_integer:06 12 34 56 78
+     *  hire_date:0001-08-01 BC
+     *  job_id:SA_REP
+     *  salary:90.00
+     *  commission_pct:0.35
+     *  manager_id:146
+     *  department_id:80
      */
 
     // GET /employees
@@ -81,5 +81,10 @@ class Employees extends ResourceController
         }
 
         return $this->respond(['id' => $id, 'message' => 'Employee successfully updated']);
+    }
+
+    public function rowCount()
+    {
+        return $this->builder()->countAllResults();
     }
 }
